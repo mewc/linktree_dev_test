@@ -1,0 +1,23 @@
+{
+    "uuid": "36c58259-fec0-4391-b63e-3d3ce3b1905d",
+    "username": "eno",
+    "img": "user3_img.png",
+    "theme": "EARTH",
+    "links": [
+        {
+            "name": "Artist Site",
+            "type": "classic",
+            "link": "https://brian-eno.net/"
+        },
+        {
+            "name": "Shows",
+            "type": "shows",
+            "link": "https://www.songkick.com/artists/41530-brian-eno"
+        },
+        {
+            "name": "Music",
+            "type": "music",
+            "link": "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi"
+        }
+    ]
+}
