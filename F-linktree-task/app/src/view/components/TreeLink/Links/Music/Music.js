@@ -14,9 +14,12 @@ const Music = forwardRef((props, ref) => {
         ...classes,
         'link-music-drawer': true
     })
+    const LtLink = cx({
+        'lt-link': true
+    })
     return (
         <React.Fragment>
-            <div>{data.name}</div>
+            <div className={LtLink}>{data.name}</div>
             <LinkDrawer {...props}>
                 <div className={MusicDrawerWrapperClass}>
                 Music

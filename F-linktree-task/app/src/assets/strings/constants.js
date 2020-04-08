@@ -10,10 +10,12 @@ export const ACTION_STATE = {
 
 const LOADING_TYPE = "LOADING";
 const TREELINK_TYPE = "TREELINK";
+const SHOWS_TYPE = "SHOWS";
 
 export const ACTION_TYPES = {
     LOADING_TYPE,
-    TREELINK_TYPE
+    TREELINK_TYPE,
+    SHOWS_TYPE
 }
 
 

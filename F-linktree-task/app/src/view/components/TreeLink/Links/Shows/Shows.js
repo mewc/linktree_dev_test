@@ -7,20 +7,36 @@ import { stringToClassNamesObject } from '../../../../../util/styling';
 import LinkDrawer from '../../LinkDrawer';
 
 
+const buildShowList = (showData, config) => {
+
+    const ShowsDrawerWrapperClass = cx({
+        'show-soldout': showData.status === 'SOLD OUT',
+        'show-available': showData.status === 'AVAILABLE',
+        'show-selling-fast': showData.status.includes('tickets left')
+    });
+    return (<div className={ShowsDrawerWrapperClass} key={`show-list-${config.index}`}>
+        {showData.date}
+        {showData.venue}
+        {showData.link}
+    </div>)
+} 
+
 const Shows = forwardRef((props, ref) => {
-    const { className, data } = props;
+    const { className, data, shows } = props;
     let classes = stringToClassNamesObject(className);
     const ShowsDrawerWrapperClass = cx({
         ...classes,
-        'link-shows-drawer': true
+        'link-shows-drawer': true,
+    });
+    const LtLink = cx({
+        'lt-link': true
     })
-    console.log(props);
     return (
         <React.Fragment>
-            <div>{data.name}</div>
+            <div className={LtLink}>{data.name}</div>
             <LinkDrawer {...props}>
                 <div className={ShowsDrawerWrapperClass}>
-                    Shows
+                    {(shows)?shows.map((d, index) => buildShowList(d, {index})):'Missing'}
                 </div>
             </LinkDrawer>
         </React.Fragment>

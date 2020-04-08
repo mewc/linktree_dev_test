@@ -8,8 +8,6 @@ html, body {
 
 .lt-link:hover {
     background: white;
-    border-color: black;
     color: black;
-    border-width: 2px;
-    border-style: solid;
+    
 }

@@ -16,31 +16,34 @@ const getUserFromPath = () => window.location.pathname.split('/tree/')[1].split(
 
 const Link = (props) => {
     const { loading, udata, username } = props;
+
     const WrapperClass = cx({
         'linktree-fail-wrapper': (udata === USER_DATA_STATES.NOTFOUND),
         'linktree-wrapper': true,
         ['lt-theme-' + udata.theme]: udata.theme
     })
-
     const currentUsername = getUserFromPath();
-    if (loading || udata === USER_DATA_STATES.EMPTY || username !== currentUsername) {
-        console.log({ currentUsername, username, udata });
+    //if we are waiting for a response
+
+    //TODO organise the status gates better
+    if (!loading && (udata === USER_DATA_STATES.EMPTY || username !== currentUsername)) {
         props.getUserData(currentUsername);
-        //dont have this users data yet, dispatch.
+    }
+    if (udata === USER_DATA_STATES.NOTFOUND) {
+        return (<MissingPage />)
+    }
+    if (loading || udata.links === undefined) {
         //TODO prettier handling of loading screen for higher latencies
         return (<div className={WrapperClass}>
             {loading ? '...loading' : ''}
         </div >);
     }
-    if (udata === USER_DATA_STATES.NOTFOUND) {
-        return (<MissingPage />)
-    }
-    //TODO handle style change better with a themeprovider around this component (more reacty than loading seperate css files)
+    //TODO handle style change better with a themeprovider around app (more reacty than loading seperate css files)
     return ( //user found, render linktree
         <div className={WrapperClass}>
             <link rel="stylesheet" type="text/css" href={`/themes/${getThemeKey(udata.theme)}.css`} />
             <UserHeader username={udata.username} imgsrc={udata.img} />
-            <TreeWrapper linkCollection={udata.links} />
+            <TreeWrapper linkCollection={udata.links} linkTypeData={props.linkTypeData} />
         </div >
     );
 }
@@ -48,9 +51,11 @@ const Link = (props) => {
 const mapStateToProps = (state, ownProps) => {
     let data = state.treelink.data;
     if (data === undefined) data = USER_DATA_STATES.EMPTY;
+    console.log('Loading', state.app.loading);
     return {
         loading: (Object.keys(state.app.loading).length > 0),
         udata: data,
+        linkTypeData: { shows: state.treelink.shows, music: state.treelink.music },
         username: state.treelink.username
     };
 }

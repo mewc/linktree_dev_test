@@ -5,6 +5,7 @@ html, body {
 .lt-link {
     background: #39e09b;
     box-sizing: border-box;
+    color: black
 }
 
 .lt-link:hover {

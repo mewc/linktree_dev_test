@@ -17,9 +17,9 @@ const decideLinkType = (linkData, config) => {
         case LINK_TYPES.CLASSIC:
             return (<Classic data={linkData} />)
         case LINK_TYPES.MUSIC:
-            return (<Music data={linkData} status={config.status}/>)
+            return (<Music data={linkData} music={config.music} status={config.status}/>)
         case LINK_TYPES.SHOWS:
-            return (<Shows data={linkData} status={config.status} />)
+            return (<Shows data={linkData} shows={config.shows} status={config.status} />)
         default:
             console.log('none');
             break;
@@ -28,20 +28,18 @@ const decideLinkType = (linkData, config) => {
 
 
 const TreeLink = forwardRef((props, ref) => {
-    const { linkData, classes } = props;
+    const { linkData, linkTypeData } = props;
     const [status, setToggleState] = useState(LINK_TOGGLE.OFF);
 
     function toggle() {
         setToggleState(status === LINK_TOGGLE.ON ? LINK_TOGGLE.OFF: LINK_TOGGLE.ON);
     }
-
     const ClassicWrapperClass = cx({
-        ...classes,
-        'lt-link': true
+        'lt-link-wrapper': true
     })
     return (
         <div className={ClassicWrapperClass} onClick={() => toggle()} >
-            {decideLinkType(linkData, {status})}
+            {decideLinkType(linkData, { status, ...linkTypeData})}
         </div>
     )
 });

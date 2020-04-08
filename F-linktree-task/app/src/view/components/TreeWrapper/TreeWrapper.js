@@ -8,18 +8,13 @@ import TreeLink from '../TreeLink';
 
 
 const TreeWrapper = forwardRef((props, ref) => {
-    const { className, linkCollection } = props;
-    let classes = stringToClassNamesObject(className);
+    const { linkCollection, linkTypeData } = props; 
     const TreeWrapperClass = cx({
-        ...classes,
         'tree-wrapper': true
     })
-    console.log(linkCollection);
-
-    //TODO process all links for user
     return (
         <div className={TreeWrapperClass}>
-            {linkCollection.map((l, index) => (<TreeLink linkData={l} key={`link-${index}`}/>))}
+            {linkCollection.map((l, index) => (<TreeLink linkData={l} key={`link-${index}`} linkTypeData={linkTypeData} />))}
         </div>
     )
 });
