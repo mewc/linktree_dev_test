@@ -16,10 +16,9 @@ const UserAvatar = forwardRef((props, ref) => {
     const ImgClass = cx({
         'user-icon': true
     })
-    console.log(props);
     return (
         <div className={HeaderWrapperClass}>
-            <img src={buildImgLinkFromFilename(imgsrc)} className={ImgClass}></img> 
+            <img src={buildImgLinkFromFilename(imgsrc)} className={ImgClass} alt={"user avatar"}></img> 
         </div>
     )
 });

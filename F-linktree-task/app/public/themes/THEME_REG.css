@@ -1,0 +1,16 @@
+html, body {
+    background: white;
+}
+
+.lt-link {
+    background: #39e09b;
+    box-sizing: border-box;
+}
+
+.lt-link:hover {
+    background: white;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    color: black
+}

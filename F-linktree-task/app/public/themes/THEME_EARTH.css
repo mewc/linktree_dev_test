@@ -1,0 +1,14 @@
+html, body {
+    background-color: darkgreen;
+}
+
+.lt-link {
+    background: white;
+    color: black;
+}
+
+.lt-link:hover {
+    cursor: pointer;
+    background: black;
+    color: white;
+}

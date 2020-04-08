@@ -36,4 +36,20 @@ export const USER_DATA_STATES = {
 }
 
 
+const CLASSIC = "CLASSIC";
+const MUSIC = "MUSIC";
+const SHOWS = "SHOWS";
+export const LINK_TYPES = {
+    SHOWS, MUSIC, CLASSIC
+}
+
+const LINK_TOGGLE_ON = "ON";
+const LINK_TOGGLE_OFF = "OFF";
+export const LINK_TOGGLE = {
+    ON: LINK_TOGGLE_ON,
+    OFF: LINK_TOGGLE_OFF
+}
+
+
+
 

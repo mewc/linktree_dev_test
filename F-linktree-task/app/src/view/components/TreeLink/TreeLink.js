@@ -1,0 +1,53 @@
+import React, {
+    forwardRef,
+    useState
+} from 'react';
+import { LINK_TYPES, LINK_TOGGLE } from '../../../assets/strings/constants';
+import cx from 'classnames';
+import './style.css';
+
+//IMPORTING LINK TYPES TO FILE
+import Classic from './Links/Classic';
+import Music from './Links/Music';
+import Shows from './Links/Shows';
+
+
+const decideLinkType = (linkData, config) => {
+    switch (linkData.type.toUpperCase()) {
+        case LINK_TYPES.CLASSIC:
+            return (<Classic data={linkData} />)
+        case LINK_TYPES.MUSIC:
+            return (<Music data={linkData} status={config.status}/>)
+        case LINK_TYPES.SHOWS:
+            return (<Shows data={linkData} status={config.status} />)
+        default:
+            console.log('none');
+            break;
+    }
+}
+
+
+const TreeLink = forwardRef((props, ref) => {
+    const { linkData, classes } = props;
+    const [status, setToggleState] = useState(LINK_TOGGLE.OFF);
+
+    function toggle() {
+        setToggleState(status === LINK_TOGGLE.ON ? LINK_TOGGLE.OFF: LINK_TOGGLE.ON);
+    }
+
+    const ClassicWrapperClass = cx({
+        ...classes,
+        'lt-link': true
+    })
+    return (
+        <div className={ClassicWrapperClass} onClick={() => toggle()} >
+            {decideLinkType(linkData, {status})}
+        </div>
+    )
+});
+
+
+
+
+
+export default TreeLink;

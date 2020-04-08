@@ -9,6 +9,11 @@
             "link": "https://www.thirdeyefoundation.com/"
         },
         {
+            "name": "News Article",
+            "type": "classic",
+            "link": "https://pitchfork.com/artists/1329-matt-elliott/"
+        },
+        {
             "name": "Shows",
             "type": "shows",
             "link": "https://www.songkick.com/artists/304231-matt-elliott" 
