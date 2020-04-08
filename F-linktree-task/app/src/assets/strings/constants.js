@@ -25,3 +25,15 @@ export const SCOPES = {
     SCOPE_APP,
     SCOPE_TREE
 }
+
+
+const NOTFOUND = "UDATA_NOTFOUND";
+const EMPTY = "UDATA_EMPTY";
+
+export const USER_DATA_STATES = {
+    NOTFOUND,
+    EMPTY
+}
+
+
+

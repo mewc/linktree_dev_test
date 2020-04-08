@@ -19,8 +19,10 @@ const {
 
 export default handleActions({
     [combineReducers(loadingStart, getTreeDataStart)]: (state, action) => {
+        console.log(state.loading, action.type);
         let l = state.loading;
-        l[action.type.split("/")[0]] = true;
+        l[action.type.split("/")[0]] = true; //add key and bool to loading object
+        //TODO handle load % instead of just booleans
         return { ...state, loading: l }
     },
     [combineReducers(loadingEnd, getTreeDataFail, getTreeDataSuccess)]: (state, action) => { //end loading actions

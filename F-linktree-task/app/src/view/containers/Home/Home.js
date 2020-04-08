@@ -3,12 +3,8 @@ import { connect } from 'react-redux';
 import cx from 'classnames';
 import './Home.css';
 import { appLoading } from '../../../state/ducks/app/operations';
-import {
-    Link
-} from "react-router-dom";
-import {
-    Grid
-} from '@material-ui/core'
+import { Link } from "react-router-dom";
+import { Grid } from '@material-ui/core'
 
 const Home = (props) => {
     const { loading } = props;
@@ -18,7 +14,7 @@ const Home = (props) => {
     if (Object.keys(loading).length > 1) { return (<p>'...loading'</p>); }
     return (
         <div className={WrapperClass}>
-            <p>Task Homepage</p>
+            <h3>Linktree Task Homepage</h3>
             <Grid container
                 spacing={4}
                 direction="row"

@@ -1,29 +1,26 @@
 import * as actions from './actions';
-import { timeoutPromise } from '../../../util/app';
-import axios from 'axios';
+import { USER_DATA_STATES } from '../../../assets/strings/constants';
 
 export const getTreeData = (username) => {
     return dispatch => {
         dispatch(actions.getTreeDataStart());
 
-        //todo make this into an API call from server
+        //todo make this into an API call to server
+        //TODO get location data properly from env vars
         const filename = `/data/example_trees/${username}.json`;
         let data = fetch(filename);
         data.then((data) => {
             return data.json()
         }).then((response) => {
-            if (response && typeof response === 'object') { //format next state here
-                console.log(response);
+            if (response && typeof response === 'object' && Object.keys(response).length > 0) { //format next state here
                 dispatch(actions.getTreeDataSuccess({
-                    linkdata: {
-                        [username]: response
-                    }
+                    data: response,
+                    username
                 }));
             } else {
                 dispatch(actions.getTreeDataFail({
-                    linkdata: {
-                        [username]: false
-                    }
+                    data: USER_DATA_STATES.NOTFOUND,
+                    username
                 }));
             }
 
@@ -31,9 +28,9 @@ export const getTreeData = (username) => {
             console.log(err);
             console.log(`No tree for ${username}`);
             dispatch(actions.getTreeDataFail({
-                linkdata: {
-                    [username]: false
-                }
+                data: USER_DATA_STATES.NOTFOUND,
+                username
+
             }));
         })
 

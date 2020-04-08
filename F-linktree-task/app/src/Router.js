@@ -10,7 +10,7 @@ import {
 //https://reacttraining.com/react-router/web/example/custom-link
 function Router() {
     document.title = 'mewc tree'
-    //todo stricter pathmatching 
+    //TODO stricter pathmatching for usernames and routing validation with regex etc.
     return (
             <BrowserRouter>
                 <Switch>

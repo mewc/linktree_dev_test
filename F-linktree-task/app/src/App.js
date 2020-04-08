@@ -13,14 +13,14 @@ function App(props) {
         <div className="App">
             {(loading)}
             <Router />
-            <div className="app-footer"> <img src={Logo} alt="Logo" className="App-logo" /></div>
+            <div className="app-footer"> <img src={Logo} alt="Logo" className="App-logo footer-logo" /></div>
         </div >
     );
 }
 
 function mapStateToProps(state, ownProps) {
     return {
-        loading: (state.app.loading[SCOPES.APP] !== null)
+        loading: (state.app.loading[SCOPES.SCOPE_APP] !== null)
     };
 }
 

@@ -1,10 +1,11 @@
 import * as actions from './actions';
 import { handleActions } from 'redux-actions';
 import merge from 'lodash.merge';
-
+import {USER_DATA_STATES} from '../../../assets/strings/constants';
 //see data/eno.json for structure
 export const initState = {
-    linkdata: {}
+    data: USER_DATA_STATES.EMPTY,
+    username: ""
 }
 
 const {
