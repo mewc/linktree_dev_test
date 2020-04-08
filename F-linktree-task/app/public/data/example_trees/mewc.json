@@ -1,0 +1,12 @@
+{
+    "username": "mewc",
+    "img": "https://mewc.info/static/media/mewc.171f284b.png",
+    "theme": "FIRE",
+    "links":[
+        {
+            "name": "personal site",
+            "type": "classic",
+            "link": "https://mewc.info"
+        }
+    ]
+}
