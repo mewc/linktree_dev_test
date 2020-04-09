@@ -51,7 +51,6 @@ const Link = (props) => {
 const mapStateToProps = (state, ownProps) => {
     let data = state.treelink.data;
     if (data === undefined) data = USER_DATA_STATES.EMPTY;
-    console.log('Loading', state.app.loading);
     return {
         loading: (Object.keys(state.app.loading).length > 0),
         udata: data,

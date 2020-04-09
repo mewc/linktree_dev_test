@@ -14,14 +14,12 @@ const getShowData = (dispatch, showProviderLink) => {
     //TODO depending on provider (songkick, residentAdvisor etc.) make API calls and process response here
     //TODO generalise as provider detector and fetcher (put in obj, return results for any topic (reusable for other links like socials, events, images, products))
     get(filename).then((response) => {
-        console.log('showshows', response);
+        // console.log('showshows', response);
         if (Array.isArray(response)) { //format next state here
-            console.log('in');
             dispatch(actions.getShowDataSuccess({
                 shows: response
             }));
         } else {
-            console.log('out');
             dispatch(actions.getShowDataFail({
                 shows: USER_DATA_STATES.NOTFOUND
             }));
@@ -45,14 +43,12 @@ const getMusicData = (dispatch, musicLinks) => {
         id = id[id.length - 1]; //get last url value as id to fetch music data from. 
         return get(`/data/example_music_data/${id}.json`);
     })).then((response) => {
-        console.log('musicmusic', response);
+        // console.log('musicmusic', response);
         if (Array.isArray(response)) { //format next state here
-            console.log('in');
             dispatch(actions.getMusicDataSuccess({
                 music: response[0] //TODO rm hardcode 0 index and get real results if there are many
             }));
         } else {
-            console.log('out');
             dispatch(actions.getMusicDataFail({
                 music: USER_DATA_STATES.NOTFOUND
             }));
@@ -81,7 +77,6 @@ const getExtraData = (dispatch, links) => {
                 break;
         }
     })
-    console.log({extra});
     if (extra[LINK_TYPES.SHOWS] && extra[LINK_TYPES.SHOWS].length === 1) { getShowData(dispatch, extra[LINK_TYPES.SHOWS][0].link); }
     if (extra[LINK_TYPES.MUSIC] && extra[LINK_TYPES.MUSIC].length > 0) { getMusicData(dispatch, extra[LINK_TYPES.MUSIC]); }
     return Object.keys(extra);
@@ -100,7 +95,6 @@ export const getTreeData = (username) => {
         data.then((data) => {
             return data.json()
         }).then((response) => {
-            console.log(response);
             if (response && typeof response === 'object' && Object.keys(response).length > 0) { //format next state here
                 dispatch(actions.getTreeDataSuccess({
                     data: response,
@@ -114,8 +108,6 @@ export const getTreeData = (username) => {
                 }));
             }
         }).catch((err) => {
-            console.log(err);
-            console.log(`No tree for ${username}`);
             dispatch(actions.getTreeDataFail({
                 data: USER_DATA_STATES.NOTFOUND,
                 username

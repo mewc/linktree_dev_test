@@ -18,8 +18,6 @@ const Music = forwardRef((props, ref) => {
         'linktree-fail-wrapper': true,
 
     })
-    console.log(data);
-
     return (
         <div className={WrapperClass}>
             <Icon src={LogoNoText} className={'logo-no-text'}></Icon>

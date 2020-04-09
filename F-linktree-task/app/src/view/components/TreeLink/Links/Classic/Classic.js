@@ -12,8 +12,8 @@ const Classic = forwardRef((props, ref) => {
     })
     return (
         <React.Fragment>
-            <div className={LtLink} onClick={() => toggle()} >
-            <a href={data.link} target="_blank" rel="noopener noreferrer">{data.name}</a>
+            <div className={LtLink} onClick={() => { toggle(); window.open(data.link, "_blank")}} >
+                {data.name}
             </div>
         </React.Fragment>
     )

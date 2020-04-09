@@ -1,14 +1,20 @@
 [
     {
         "provider": "Spotify",
-        "link": "https://open.spotify.com/artist/0559tR6WyukLWH68JIGBuC"
+        "link": "https://open.spotify.com/artist/0559tR6WyukLWH68JIGBuC",
+        "title": "The Guilty Party by Matt Elliott",
+        "img": "mattelliott-cover.png"
     },
     {
         "provider": "Apple",
-        "link": "https://music.apple.com/us/artist/matt-elliott/5445647"
+        "link": "https://music.apple.com/us/artist/matt-elliott/5445647",
+        "title": "The Guilty Party by Matt Elliott",
+        "img": "mattelliott-cover.png"
     },
     {
         "provider": "Bandcamp",
-        "link": "https://mattelliott.bandcamp.com/"
+        "link": "https://mattelliott.bandcamp.com/",
+        "title": "The Guilty Party by Matt Elliott",
+        "img": "mattelliott-cover.png"
     }
 ]

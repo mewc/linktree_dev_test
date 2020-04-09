@@ -20,7 +20,6 @@ const {
 
 export default handleActions({
     [combineActions(getTreeDataStart, getShowDataStart, getMusicDataStart)]: (state, action) => { 
-        console.log({action});
         return { ...merge(state, action.payload) }
     },
     [combineActions(getTreeDataSuccess, getShowDataSuccess, getMusicDataSuccess)]: (state, action) => {

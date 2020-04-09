@@ -1,10 +1,9 @@
 {
   "name": "react-redux-ducks-template",
-  "version": "1.0",
+  "version": "0.1.2.3",
   "private": false,
   "license": "MIT",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
     "@material-ui/core": "^4.9.9",
     "@reduxjs/toolkit": "^1.1.0",
     "@testing-library/jest-dom": "^4.2.4",

@@ -8,7 +8,6 @@ import './app.css';
 
 function App(props) {
     const { loading } = props.loading;
-    console.log(Logo);
     return (
         <div className="App">
             {(loading)}

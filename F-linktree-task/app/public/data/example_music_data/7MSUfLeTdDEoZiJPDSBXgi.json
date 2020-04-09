@@ -1,14 +1,20 @@
 [
     {
         "provider": "Spotify",
-        "link": "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi"
+        "link": "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi",
+        "title": "Song 3 by Blurrier",
+        "img": "eno-cover.jpg"
     },
     {
         "provider": "Apple",
-        "link": "https://music.apple.com/us/artist/brian-eno/38124"
+        "link": "https://music.apple.com/us/artist/brian-eno/38124",
+        "title": "Song 3 by Blurrier",
+        "img": "eno-cover.jpg"
     },
     {
         "provider": "Bandcamp",
-        "link": "https://brianenoallsaints.bandcamp.com/fakeIDhere"
+        "link": "https://brianenoallsaints.bandcamp.com/fakeIDhere",
+        "title": "Song 3 by Blurrier",
+        "img": "eno-cover.jpg"
     }
 ]
