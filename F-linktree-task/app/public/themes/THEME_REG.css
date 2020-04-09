@@ -15,3 +15,11 @@ html, body {
     border-style: solid;
     color: black
 }
+
+.lt-music-progress {
+    background-color: darkgray;
+}
+
+.MuiLinearProgress-bar1Determinate {
+    background-color: #289f6d;
+}

@@ -1,7 +1,16 @@
-.link-drawer-open {
-    display: none;
+.lt-music-item, .lt-music-item-play, .lt-music-item-cover {
+    cursor: pointer;
 }
 
-.link-drawer-closed {
-    display: block;
+div.lt-music-player {
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+.lt-music-progress {
+    position: relative;
+    bottom: 10px;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 10px;
 }

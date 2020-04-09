@@ -21,7 +21,7 @@ const decideLinkType = (linkData, config) => {
         case LINK_TYPES.SHOWS:
             return (<Shows data={linkData} {...config} />)
         default:
-            console.log('none');
+            console.log('Not a valid link type', linkData.type);
             break;
     }
 }

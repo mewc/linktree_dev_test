@@ -7,24 +7,25 @@ import {USER_DATA_STATES} from '../../../assets/strings/constants';
 export const initState = {
     data: USER_DATA_STATES.EMPTY,
     username: "",
-    shows: []
+    shows: [],
+    music: [],
 }
 
 const {
     getTreeDataSuccess, getTreeDataFail, getTreeDataStart,
-    getShowDataSuccess, getShowDataFail, getShowDataStart
+    getShowDataSuccess, getShowDataFail, getShowDataStart,
+    getMusicDataSuccess, getMusicDataFail, getMusicDataStart
 } = actions;
 
 
 export default handleActions({
-    [combineActions(getTreeDataStart, getShowDataStart)]: (state, action) => { 
-        console.log({action});
+    [combineActions(getTreeDataStart, getShowDataStart, getMusicDataStart)]: (state, action) => { 
         return { ...merge(state, action.payload) }
     },
-    [combineActions(getTreeDataSuccess, getShowDataSuccess)]: (state, action) => {
+    [combineActions(getTreeDataSuccess, getShowDataSuccess, getMusicDataSuccess)]: (state, action) => {
         return { ...merge(state, action.payload) } //merge will handle no overwriting without awkward spreads all over
     },
-    [combineActions(getTreeDataFail, getShowDataFail)]: (state, action) => { //end loading actions
+    [combineActions(getTreeDataFail, getShowDataFail, getMusicDataFail)]: (state, action) => { //end loading actions
         return {...merge(state, action.payload) }
     }
 }, initState)

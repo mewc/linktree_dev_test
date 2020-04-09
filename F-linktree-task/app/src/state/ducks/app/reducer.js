@@ -21,7 +21,6 @@ const {
 
 export default handleActions({
     [combineActions(loadingStart, getTreeDataStart, getShowDataStart)]: (state, action) => {
-        console.log(state.loading, action.type);
         let l = state.loading;
         l[action.type.split("_")[0]] = true; //add key and bool to loading object
         //TODO handle load % instead of just booleans

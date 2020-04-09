@@ -13,15 +13,17 @@ in the frontend app root directory (where package.json is) run:
 
 
 
+
 ## Outline
 
 1. This app is built on React ^16.x
-1. State management is `redux` with `ducks` methods and `thunk` middleware
-1. Routed with `react-router` and `redux-actions` as the action bundler
+2. State management is `redux` with `ducks` methods and `thunk` middleware
+3. Routed with `react-router` and `redux-actions` as the action bundler
 
 Front end components are build in view/components
 They are then references in the corres. containers for each "page"
 Containers manage stage and interact with 
+
 
 ## Brief description and notes
 

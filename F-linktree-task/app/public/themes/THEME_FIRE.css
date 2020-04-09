@@ -9,5 +9,12 @@ html, body {
 .lt-link:hover {
     background: white;
     color: black;
-    
+}
+
+.lt-music-progress {
+    background-color: #852024;
+}
+
+.MuiLinearProgress-bar1Determinate {
+    background-color: #de2d32;
 }

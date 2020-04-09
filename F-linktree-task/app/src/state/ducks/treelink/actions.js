@@ -12,3 +12,7 @@ export const getTreeDataSuccess = createAction(types.GET_TREE_SUCCESS, passthrou
 export const getShowDataStart = createAction(types.GET_SHOWS_START, passthrough);
 export const getShowDataFail = createAction(types.GET_SHOWS_FAIL, passthrough);
 export const getShowDataSuccess = createAction(types.GET_SHOWS_SUCCESS, passthrough);
+
+export const getMusicDataStart = createAction(types.GET_MUSIC_START, passthrough);
+export const getMusicDataFail = createAction(types.GET_MUSIC_FAIL, passthrough);
+export const getMusicDataSuccess = createAction(types.GET_MUSIC_SUCCESS, passthrough);

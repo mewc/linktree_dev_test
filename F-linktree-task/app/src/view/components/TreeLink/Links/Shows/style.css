@@ -1,4 +1,32 @@
-.lt-show{
+.lt-show {
     margin: 0 auto;
     display: block;
+}
+
+.lt-show-provider {
+    padding: 10px;
+    margin: 10px;
+}
+
+.lt-show-item .lt-show-date, .lt-show-item  .lt-show-venue {
+    margin: 7px 0 7px 0;
+}
+
+.lt-show-item {
+    font-size: small;
+    padding: 3px;
+}
+
+.lt-show-date {
+    font-size: large;
+}
+
+.lt-show-link, .lt-show-link:visited {
+    padding-right: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.lt-show-venue {
+    padding-top: 5px;
 }

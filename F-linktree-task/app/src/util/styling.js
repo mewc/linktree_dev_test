@@ -14,3 +14,4 @@ export const getThemeKey = (input) => {
     const t = THEMES[input];
     return (t) ? t : THEMES.REG
 }
+
