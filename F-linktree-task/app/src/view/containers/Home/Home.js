@@ -20,7 +20,7 @@ const Home = (props) => {
                 direction="row"
                 justify="center"
                 alignItems="center"
-            >
+            >{}
                 <Grid item xs={6}>
                     <Link to={`/tree/eno`} className={'link'}>Tree User 1</Link>
                 </Grid>

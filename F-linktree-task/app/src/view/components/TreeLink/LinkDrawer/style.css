@@ -3,8 +3,8 @@
     width: 80%;
     margin: 0 auto;
     background-color: #f7f7f7;
-    position:relative;
-    bottom:20px;
+    position: relative;
+    bottom: 20px;
     border-radius: 10px;
 }
 
@@ -24,23 +24,4 @@
 
 .lt-shows-drawer .lt-show-item {
     width: 100%
-}
-
-.lt-show-item {
-    font-size: small;
-    padding: 3px;
-}
-
-.lt-show-date {
-    font-size: large;
-}
-
-.lt-show-link, .lt-show-link:visited {
-    padding-right: 10px;
-    text-decoration: none;
-
-}
-
-.lt-show-venue {
-    padding-top: 5px;
 }
