@@ -1,0 +1,14 @@
+[
+    {
+        "provider": "Spotify",
+        "link": "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi"
+    },
+    {
+        "provider": "Apple",
+        "link": "https://music.apple.com/us/artist/brian-eno/38124"
+    },
+    {
+        "provider": "Bandcamp",
+        "link": "https://brianenoallsaints.bandcamp.com/"
+    }
+]

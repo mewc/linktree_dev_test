@@ -7,7 +7,7 @@ import { stringToClassNamesObject } from '../../../util/styling';
 
 
 const UserHeader = forwardRef((props, ref) => {
-    const { src, className, username } = props;
+    const { className, username } = props;
     let classes = stringToClassNamesObject(className);
     const HandleWrapperClass = cx({
         ...classes,

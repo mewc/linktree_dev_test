@@ -2,6 +2,7 @@
     width: 150px;
 }
 
-.linktree-wrapper {
+.linktree-wrapper, .linktree-fail-wrapper {
     margin-top: 50px;
+    min-height: 85vh;
 }

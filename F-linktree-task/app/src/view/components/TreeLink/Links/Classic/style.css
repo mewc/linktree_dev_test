@@ -1,0 +1,11 @@
+.link-classic {
+    width: 80%;
+    background-color: #39e09b;
+    margin: 20px auto;
+    border-radius: 5px;
+    padding: 13px;
+}
+
+.link-classic>a {
+    text-decoration: none
+}

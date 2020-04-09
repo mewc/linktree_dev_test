@@ -1,3 +1,5 @@
+import { THEMES } from '../assets/themes/constants';
+
 export const stringToClassNamesObject = (string) => {
     if (typeof string == 'string' && string.length > 0) {
         let classes = {};
@@ -6,4 +8,9 @@ export const stringToClassNamesObject = (string) => {
     } else {
         return {};
     }
-} 
+}
+
+export const getThemeKey = (input) => {
+    const t = THEMES[input];
+    return (t) ? t : THEMES.REG
+}

@@ -16,24 +16,27 @@ const Home = (props) => {
         <div className={WrapperClass}>
             <h3>Linktree Task Homepage</h3>
             <Grid container
-                spacing={4}
+                spacing={2}
                 direction="row"
                 justify="center"
                 alignItems="center"
             >
-                <Grid item>
+                <Grid item xs={6}>
                     <Link to={`/tree/eno`} className={'link'}>Tree User 1</Link>
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                     <Link to={`/tree/mattelliott`} className={'link'}>Tree User 2</Link>
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                     <Link to={`/tree/mewc`} className={'link'}>Tree User 3</Link>
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
+                    <Link to={`/tree/younggodrecords`} className={'link'}>Tree User 4</Link>
+                </Grid>
+                <Grid item xs={6}>
                     <Link to={`/tree/not-set-deliberately`} className={'link'}>Missing Tree User 1</Link>
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                     <Link to={`/tree/`} className={'link'}>No User set</Link>
                 </Grid>
             </Grid>

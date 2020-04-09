@@ -1,0 +1,13 @@
+.lt-link {
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 5px;
+    padding: 13px;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: white;
+}
+
+.lt-link>a {
+    text-decoration: none
+}

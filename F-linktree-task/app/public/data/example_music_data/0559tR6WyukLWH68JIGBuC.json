@@ -1,0 +1,14 @@
+[
+    {
+        "provider": "Spotify",
+        "link": "https://open.spotify.com/artist/0559tR6WyukLWH68JIGBuC"
+    },
+    {
+        "provider": "Apple",
+        "link": "https://music.apple.com/us/artist/matt-elliott/5445647"
+    },
+    {
+        "provider": "Bandcamp",
+        "link": "https://mattelliott.bandcamp.com/"
+    }
+]
