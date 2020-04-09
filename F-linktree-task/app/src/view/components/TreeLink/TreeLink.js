@@ -15,11 +15,11 @@ import Shows from './Links/Shows';
 const decideLinkType = (linkData, config) => {
     switch (linkData.type.toUpperCase()) {
         case LINK_TYPES.CLASSIC:
-            return (<Classic data={linkData} />)
+            return (<Classic data={linkData} {...config}/>)
         case LINK_TYPES.MUSIC:
-            return (<Music data={linkData} music={config.music} status={config.status}/>)
+            return (<Music data={linkData} {...config}/>)
         case LINK_TYPES.SHOWS:
-            return (<Shows data={linkData} shows={config.shows} status={config.status} />)
+            return (<Shows data={linkData} {...config} />)
         default:
             console.log('none');
             break;
@@ -38,8 +38,8 @@ const TreeLink = forwardRef((props, ref) => {
         'lt-link-wrapper': true
     })
     return (
-        <div className={ClassicWrapperClass} onClick={() => toggle()} >
-            {decideLinkType(linkData, { status, ...linkTypeData})}
+        <div className={ClassicWrapperClass} >
+            {decideLinkType(linkData, { toggle, status, ...linkTypeData})}
         </div>
     )
 });

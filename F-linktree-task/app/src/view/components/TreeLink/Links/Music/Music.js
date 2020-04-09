@@ -7,7 +7,7 @@ import { stringToClassNamesObject } from '../../../../../util/styling';
 import LinkDrawer from '../../LinkDrawer';
 
 const Music = forwardRef((props, ref) => {
-    const { className, data } = props;
+    const { className, data, toggle } = props;
 
     let classes = stringToClassNamesObject(className);
     const MusicDrawerWrapperClass = cx({
@@ -19,7 +19,7 @@ const Music = forwardRef((props, ref) => {
     })
     return (
         <React.Fragment>
-            <div className={LtLink}>{data.name}</div>
+            <div className={LtLink} onClick={() => toggle()}>{data.name}</div>
             <LinkDrawer {...props}>
                 <div className={MusicDrawerWrapperClass}>
                 Music

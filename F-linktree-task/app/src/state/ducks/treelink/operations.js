@@ -3,12 +3,15 @@ import { USER_DATA_STATES } from '../../../assets/strings/constants';
 
 const getShowData = (dispatch, showProviderLink) => {
     console.log(showProviderLink);
-    dispatch(actions.getShowDataStart());
+    dispatch(actions.getShowDataStart({shows:[]}));
 
-    const id = showProviderLink.split('.com/artists/')[1];
-    //todo make this into an API call to server for each provider
     //TODO get location data properly from env vars
+    const id = showProviderLink.split('.com/artists/')[1];
     const filename = `/data/example_show_data/${id}.json`;
+
+
+    //TODO depending on provider (songkick, residentAdvisor etc.) make API calls and process response here
+    //TODO generalise as provider detector and fetcher (put in obj, return results for any topic (reusable for other links like socials, events, images, products))
     let data = fetch(filename);
     data.then((data) => {
         return data.json()
@@ -38,9 +41,9 @@ const getShowData = (dispatch, showProviderLink) => {
 export const getTreeData = (username) => {
     return dispatch => {
         console.log(username, 'start');
-        dispatch(actions.getTreeDataStart());
+        dispatch(actions.getTreeDataStart({ data: USER_DATA_STATES.EMPTY, username: ""})); //reset on start
 
-        //todo make this into an API call to server
+        //TODO make this into an API call to server
         //TODO get location data properly from env vars
         const filename = `/data/example_trees/${username}.json`;
         let data = fetch(filename);

@@ -11,12 +11,16 @@ export const initState = {
 }
 
 const {
-    getTreeDataSuccess, getTreeDataFail,
-    getShowDataSuccess, getShowDataFail
+    getTreeDataSuccess, getTreeDataFail, getTreeDataStart,
+    getShowDataSuccess, getShowDataFail, getShowDataStart
 } = actions;
 
 
 export default handleActions({
+    [combineActions(getTreeDataStart, getShowDataStart)]: (state, action) => { 
+        console.log({action});
+        return { ...merge(state, action.payload) }
+    },
     [combineActions(getTreeDataSuccess, getShowDataSuccess)]: (state, action) => {
         return { ...merge(state, action.payload) } //merge will handle no overwriting without awkward spreads all over
     },
