@@ -6,3 +6,4 @@ config/
 .env.development.local
 .env.test.local
 .env.production.local
+B-linktree-task/app/node_modules/
