@@ -1,0 +1,276 @@
+const expect = require('chai').expect;
+const config = require('config');
+const request = require('supertest');
+const server = require('../src/app.js');
+const testSpecs = require('./app.test.specs');
+console.log(server.port);
+
+describe('Server', () => {
+    it('tests that server is running current port', async () => {
+        expect(server.port).to.equal(config.get('port'))
+    })
+});
+
+describe('Link types active', () => {
+    it('tests the correct link types are active', async () => {
+        const activeLinks = require('../src/config/links');
+        expect(JSON.stringify(config.activeLinks)).to.equal(JSON.stringify(activeLinks));
+    } );
+    
+})
+
+describe('POST /newlink', () => {
+
+    it('should not accept links with titles > 144 chars', (done) => {
+        request(server)
+            .post('/newlink')
+            .send(testSpecs.longTitleLink)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                done();
+            });
+    })
+    it('should accept links with titles < 144 chars', (done) => {
+        request(server)
+            .post('/newlink')
+            .send(testSpecs.shortTitleLink)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                done();
+            });
+    })
+    it('should reject invalid link types', (done) => {
+        request(server)
+            .post('/newlink')
+            .send(testSpecs.invalidLinkType)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                done();
+            });
+    })
+    it('should reject unknown link types', (done) => {
+        request(server)
+            .post('/newlink')
+            .send(testSpecs.unknownLinkType)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                done();
+            });
+    })
+    describe('CLASSIC', () => {
+        it('should accept a valid link format', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.classic.validLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject an invalid link format', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.classic.invalidLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+    });
+    describe('SHOWS', () => {
+        it('should accept a valid link format', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.shows.validLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject an invalid link format', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.shows.invalidLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should accept supported show platforms', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.shows.supportedShowLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject unsupported show platforms', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.shows.unsupportedShowLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should detect a show is sold out', (done) => {
+            //take link in, make mock call and parse result
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.shows.supportedShowLinkForSoldout)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should detect a show still has tickets available', (done) => {
+            //take link in, make mock call and parse result
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.shows.supportedShowLinkForHasTickets)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+    });
+    describe('MUSIC', () => {
+        it('should accept a valid link format', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.music.validLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject an invalid link format', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.music.invalidLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should accept supported music platforms', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.music.invalidLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject unsupported music platforms', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.music.invalidLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should process and return the embed player resource link', (done) => {
+            request(server)
+                .post('/newlink')
+                .send(testSpecs.music.invalidLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+    });
+            
+    
+})
+
+
+describe('GET /link:uuid', () => {
+
+    it('should return all active links for valid user', (done) => {
+        request(server)
+            .get(`/link/${testSpecs.validUid}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                done();
+            });
+    })
+    it('should return empty for invalid user', (done) => {
+        request(server)
+            .get(`/link/${testSpecs.invalidUid}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                done();
+            });
+    })
+    it('should return sorted active links for user', (done) => {
+        request(server)
+            .get(`/link/${testSpecs.validUid}?sort=date`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                done();
+            });
+    })
+})

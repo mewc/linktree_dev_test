@@ -7,3 +7,5 @@ config/
 .env.test.local
 .env.production.local
 B-linktree-task/app/node_modules/
+
+B-linktree-task/app/.env
