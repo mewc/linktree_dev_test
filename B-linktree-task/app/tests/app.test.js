@@ -78,7 +78,6 @@ describe('POST /link', () => {
                 .set('Accept', 'application/json')
                 .set('Content-Type', 'application/json')
                 .send(testSpecs.longTitleLink)
-
                 .expect(422)
                 .end(function (err, res) {
                     if (err) return done(err);
@@ -93,6 +92,7 @@ describe('POST /link', () => {
                 .set('Accept', 'application/json')
                 .expect(200)
                 .end(function (err, res) {
+                    debug(res.body,err);
                     if (err) return done(err);
                     done();
                 });
@@ -117,7 +117,7 @@ describe('POST /link', () => {
                 .expect(422)
                 .end(function (err, res) {
                     if (err) return done(err);
-                    expect(res.error.text).to.include(`Invalid link URL`)
+                    expect(res.error.text).to.include(`Invalid URL input found`)
                     done();
                 });
         })
@@ -148,28 +148,27 @@ describe('POST /link', () => {
                     done();
                 });
         })
-       
+
     });
     describe('SHOWS LINKS', () => {
-        it('should accept a valid link format', (done) => {
+        it('should accept a valid show object format', (done) => {
             request(server)
                 .post('/link')
                 .send(testSpecs.shows.validLink)
                 .set('Accept', 'application/json')
-                
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
+                    expect(res.body.status).to.equal('OK');
                     done();
                 });
         })
-        it('should reject an invalid link format', (done) => {
+        it('should reject an invalid show object format', (done) => {
             request(server)
                 .post('/link')
                 .send(testSpecs.shows.invalidLink)
                 .set('Accept', 'application/json')
-                
-                .expect(200)
+                .expect(422)
                 .end(function (err, res) {
                     if (err) return done(err);
                     done();
@@ -178,9 +177,8 @@ describe('POST /link', () => {
         it('should accept supported show platforms', (done) => {
             request(server)
                 .post('/link')
-                .send(testSpecs.shows.supportedShowLink)
+                .send(testSpecs.shows.supportedShowPlatform)
                 .set('Accept', 'application/json')
-                
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
@@ -190,11 +188,12 @@ describe('POST /link', () => {
         it('should reject unsupported show platforms', (done) => {
             request(server)
                 .post('/link')
-                .send(testSpecs.shows.unsupportedShowLink)
+                .send(testSpecs.shows.unsupportedShowPlatform)
                 .set('Accept', 'application/json')
-                
-                .expect(200)
+                .expect(422)
                 .end(function (err, res) {
+
+                    //TODO check body for er
                     if (err) return done(err);
                     done();
                 });
@@ -205,7 +204,7 @@ describe('POST /link', () => {
                 .post('/link')
                 .send(testSpecs.shows.supportedShowLinkForSoldout)
                 .set('Accept', 'application/json')
-                
+
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
@@ -218,7 +217,7 @@ describe('POST /link', () => {
                 .post('/link')
                 .send(testSpecs.shows.supportedShowLinkForHasTickets)
                 .set('Accept', 'application/json')
-                
+
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
@@ -226,66 +225,76 @@ describe('POST /link', () => {
                 });
         })
     });
-    // describe('MUSIC LINKS', () => {
-    //     it('should accept a valid link format', (done) => {
-    //         request(server)
-    //             .post('/link')
-    //             .send(testSpecs.music.validLink)
-    //             .set('Accept', 'application/json')
-    //             
-    //             .expect(200)
-    //             .end(function (err, res) {
-    //                 if (err) return done(err);
-    //                 done();
-    //             });
-    //     })
-    //     it('should reject an invalid link format', (done) => {
-    //         request(server)
-    //             .post('/link')
-    //             .send(testSpecs.music.invalidLink)
-    //             .set('Accept', 'application/json')
-    //             
-    //             .expect(200)
-    //             .end(function (err, res) {
-    //                 if (err) return done(err);
-    //                 done();
-    //             });
-    //     })
-    //     it('should accept supported music platforms', (done) => {
-    //         request(server)
-    //             .post('/link')
-    //             .send(testSpecs.music.invalidLink)
-    //             .set('Accept', 'application/json')
-    //             
-    //             .expect(200)
-    //             .end(function (err, res) {
-    //                 if (err) return done(err);
-    //                 done();
-    //             });
-    //     })
-    //     it('should reject unsupported music platforms', (done) => {
-    //         request(server)
-    //             .post('/link')
-    //             .send(testSpecs.music.invalidLink)
-    //             .set('Accept', 'application/json')
-    //             
-    //             .expect(200)
-    //             .end(function (err, res) {
-    //                 if (err) return done(err);
-    //                 done();
-    //             });
-    //     })
-    //     it('should process and return the embed player resource link', (done) => {
-    //         request(server)
-    //             .post('/link')
-    //             .send(testSpecs.music.invalidLink)
-    //             .set('Accept', 'application/json')
-    //             
-    //             .expect(200)
-    //             .end(function (err, res) {
-    //                 if (err) return done(err);
-    //                 done();
-    //             });
-    //     })
-    // });
+    describe('MUSIC LINKS', () => {
+        it('should accept a valid link format', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.music.validLink)
+                .set('Accept', 'application/json')
+
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject an invalid link format', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.music.invalidLink)
+                .set('Accept', 'application/json')
+
+                .expect(422)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should accept supported music platforms', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.music.supportedMusicPlatformLink)
+                .set('Accept', 'application/json')
+
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject unsupported music platforms', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.music.unsupportedMusicPlatformLink)
+                .set('Accept', 'application/json')
+
+                .expect(422)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should accept a valid embed link for provider', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.music.invalidMusicEmbedUrl)
+                .set('Accept', 'application/json')
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject a bad embed link for provider', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.music.invalidMusicEmbedUrl)
+                .set('Accept', 'application/json')
+                .expect(422)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+    });
 })

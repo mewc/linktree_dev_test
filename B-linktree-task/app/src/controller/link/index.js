@@ -1,22 +1,35 @@
 const db = require('../../util/db');
 const debug = require('debug')('server:debug')
 const buildModel = require('../../models/builder');
+const providerLinkValidator = require('../../util/provider').validateModelLinks;
 
 const makeNewLink = (req, res, next) => {
     let model = false;
     try { model = buildModel(req.body); }
     catch (err) {
-        //TODO handle more db specific errors when using real db - pass real status code in.
+        //TODO handle more db specific errors when using real db - pass real status code/msg in.
+        debug({ msg: err.message });
         err.status = 422;
         throw err;
     }
-    db.createNewLink(model).then((r) => {
-        res.status(200).json({ status: "OK", linkId: model._id })
-    }).catch(err => {
-        //TODO handle more specific db error codes when parsing responses
-        err.status = 400;
-        throw err;
-    })
+    //validate links received by client with respective providers
+    providerLinkValidator(model)
+        .then(valid => {
+            if (valid) {
+                return db.createNewLink(model)
+            } else {
+                debug('invalid provider link');
+            }
+        })
+        .then((r) => {
+            res.status(200).json({ status: "OK", linkId: model._id })
+        }).catch(err => {
+            //TODO handle more specific db error codes when parsing responses
+            err.status = 400;
+            throw err;
+        })
+
+
 }
 
 /**

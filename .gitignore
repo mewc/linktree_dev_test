@@ -9,3 +9,5 @@ config/
 B-linktree-task/app/node_modules/
 
 B-linktree-task/app/.env
+
+B-linktree-task/app/.nyc_output/

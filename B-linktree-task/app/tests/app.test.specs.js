@@ -22,58 +22,39 @@ const classic = {
     invalidLinkUrl: invalidClassicUrl
 }
 
-const validShowsLink = {
 
-}
+const validShowLink = ((c) => c)(mockLinkProvider.show());
+const invalidShowLink = ((c) => { delete c.eventLink; return c; })(mockLinkProvider.show())
+const invalidShowEventUrl = ((c) => { c.eventLink = "htxp://somebadlink"; return c; })(mockLinkProvider.show())
+const supportedShowPlatform = validShowLink;
+const unsupportedShowPlatform = ((c) => { c.provider = "ticketek"; return c; })(mockLinkProvider.show())
 
-const invalidShowsLink = {
-
-}
-
-const supportedShowLink = {
-
-}
-
-const unsupportedShowLink = {
-
-}
-
-const supportedShowLinkForSoldout = {
-    
-}
-
-const supportedShowLinkForHasTickets = {
-
-}
+//TODO fill out after building mock
+const supportedShowLinkForSoldout = ((c) => { c.eventLink = "http://localhost:3100?soldout"; return c; })(mockLinkProvider.show())
+const supportedShowLinkForHasTickets = ((c) => { c.eventLink = "http://localhost:3100?available"; return c; })(mockLinkProvider.show())
 
 const shows = {
-    validLink: validShowsLink,
-    invalidLink: invalidShowsLink,
-    supportedShowLink,
-    unsupportedShowLink
+    validLink: validShowLink,
+    invalidLink: invalidShowLink,
+    invalidShowEventUrl,
+    supportedShowPlatform,
+    unsupportedShowPlatform,
+    supportedShowLinkForHasTickets,
+    supportedShowLinkForSoldout
 }
 
-const validMusicLink = {
 
-}
-
-const invalidMusicLink = {
-
-} 
-
-const supportedMusicPlatformLink = {
-
-}
-
-const unsupportedMusicPlatformLink = {
-
-}
-
+const validMusicLink = ((c) => c)(mockLinkProvider.music());
+const invalidMusicLink = ((c) => { delete c.embedLink; return c; })(mockLinkProvider.music())
+const invalidMusicEmbedUrl = ((c) => { c.embedLink = "htxp://somebadlink"; return c; })(mockLinkProvider.music())
+const supportedMusicPlatformLink = validMusicLink;
+const unsupportedMusicPlatformLink = ((c) => { c.provider = "FAKEPROVIDER"; return c; })(mockLinkProvider.music())
 
 
 const music = {
     validLink: validMusicLink,
     invalidLink: invalidMusicLink,
+    invalidMusicEmbedUrl,
     unsupportedMusicPlatformLink,
     supportedMusicPlatformLink
 }
