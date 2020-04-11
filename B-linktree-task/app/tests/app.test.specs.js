@@ -1,31 +1,18 @@
+const mockLinkProvider = require('../mockprovider/data/links');
+
 const validUid = "legendarypinkdots";
 const invalidUid = "INVALIDUID";
 const longTitle = "thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle"
 const shortTitle = "thisisashorttitle";
+const invalidType = "INVALIDTYPE";
+const unknownType = "UNKNOWNTYPE";
 
-
-const longTitleLink = {
-    title: longTitle,
-}
-
-const shortTitleLink = {
-    title: shortTitle,
-}
-
-const invalidLinkType = {
-    type: "INVALID_TYPE"
-}
-const unknownLinkType = {
-    type: "UNKNOWN_TYPE"
-}
-
-const validClassicLink ={
-
-}
-
-const invalidClassicLink = {
-
-}
+const longTitleLink = ((c) => { c.title = longTitle; return c; })(mockLinkProvider.classic())
+const shortTitleLink = ((c) => { c.title = shortTitle; return c; })(mockLinkProvider.classic())
+const invalidLinkType = ((c) => { c.type = invalidType; return c; })(mockLinkProvider.classic())
+const unknownLinkType = ((c) => { c.type = unknownType; return c; })(mockLinkProvider.classic())
+const validClassicLink = ((c) => c)(mockLinkProvider.classic());
+const invalidClassicLink = ((c) => { delete c.link; return c; })(mockLinkProvider.classic())
 
 const classic = {
     validLink: validClassicLink,

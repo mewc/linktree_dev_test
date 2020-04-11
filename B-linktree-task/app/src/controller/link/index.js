@@ -1,8 +1,22 @@
 const db = require('../../util/db');
 const debug = require('debug')('server:debug')
+const buildModel = require('../../models/builder');
 
 const makeNewLink = (req, res, next) => {
-    debug(req.body);
+    let model = false;
+    try { model = buildModel(req.body); }
+    catch (err) {
+        //TODO handle more db specific errors when using real db - pass real status code in.
+        err.status = 422;
+        throw err;
+    }
+    db.createNewLink(model).then((r) => {
+        res.status(200).json({ status: "OK", linkId: model._id })
+    }).catch(err => {
+        //TODO handle more specific db error codes when parsing responses
+        err.status = 400;
+        throw err;
+    })
 }
 
 /**
@@ -13,9 +27,8 @@ const makeNewLink = (req, res, next) => {
  */
 const getLinktree = (req, res, next) => {
     let treeData = false;
-    try { treeData = db.getAllLinks(req.params.uid); } 
+    try { treeData = db.getAllLinks(req.params.uid); }
     catch (err) { res.status(404).send({ message: err.message, type: err.name, statusCode: 404 }) }
-    //TODO handle error response
 
     //TODO accept more, and finer detailed query values
     if (!Object.keys(req.query).includes('sort')) return res.json(treeData);
