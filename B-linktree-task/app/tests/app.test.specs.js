@@ -11,12 +11,15 @@ const longTitleLink = ((c) => { c.title = longTitle; return c; })(mockLinkProvid
 const shortTitleLink = ((c) => { c.title = shortTitle; return c; })(mockLinkProvider.classic())
 const invalidLinkType = ((c) => { c.type = invalidType; return c; })(mockLinkProvider.classic())
 const unknownLinkType = ((c) => { c.type = unknownType; return c; })(mockLinkProvider.classic())
+
 const validClassicLink = ((c) => c)(mockLinkProvider.classic());
 const invalidClassicLink = ((c) => { delete c.link; return c; })(mockLinkProvider.classic())
+const invalidClassicUrl = ((c) => { c.link = "htxp://somebadlink"; return c; })(mockLinkProvider.classic())
 
 const classic = {
     validLink: validClassicLink,
-    invalidLink: invalidClassicLink
+    invalidLink: invalidClassicLink,
+    invalidLinkUrl: invalidClassicUrl
 }
 
 const validShowsLink = {

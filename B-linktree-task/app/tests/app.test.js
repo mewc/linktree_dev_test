@@ -109,6 +109,18 @@ describe('POST /link', () => {
                     done();
                 });
         })
+        it('should reject an invalid link url', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.classic.invalidLinkUrl)
+                .set('Accept', 'application/json')
+                .expect(422)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.error.text).to.include(`Invalid link URL`)
+                    done();
+                });
+        })
     });
 
     describe('CLASSIC LINKS', () => {
@@ -136,6 +148,7 @@ describe('POST /link', () => {
                     done();
                 });
         })
+       
     });
     describe('SHOWS LINKS', () => {
         it('should accept a valid link format', (done) => {
