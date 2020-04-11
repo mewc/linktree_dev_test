@@ -1,3 +1,5 @@
+const validUid = "legendarypinkdots";
+const invalidUid = "INVALIDUID";
 const longTitle = "thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle_thisisalongtitle"
 const shortTitle = "thisisashorttitle";
 
@@ -86,8 +88,7 @@ const music = {
     supportedMusicPlatformLink
 }
 
-const validUid = "TESTUSER1";
-const invalidUid = "INVALIDUID";
+
 
 module.exports = {
     longTitleLink,

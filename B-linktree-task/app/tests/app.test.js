@@ -3,7 +3,7 @@ const config = require('config');
 const request = require('supertest');
 const server = require('../src/app.js');
 const testSpecs = require('./app.test.specs');
-console.log(server.port);
+const debug = require('debug')('server:debug')
 
 describe('Server', () => {
     it('tests that server is running current port', async () => {
@@ -15,64 +15,115 @@ describe('Link types active', () => {
     it('tests the correct link types are active', async () => {
         const activeLinks = require('../src/config/links');
         expect(JSON.stringify(config.activeLinks)).to.equal(JSON.stringify(activeLinks));
-    } );
-    
+    });
+
 })
 
-describe('POST /newlink', () => {
+describe('GET /link:uuid', () => {
+    it('should return all active links for valid user', (done) => {
+        request(server)
+            .get(`/link/${testSpecs.validUid}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, res) => {
+                if (err) return done(err);
+                expect(res.body).to.have.property("tree");
+                expect(res.body).to.have.property("email");
+                expect(res.body).to.have.property("joinDate");
+                if (Array.isArray(res.body.tree) && res.body.tree.length > 0) done();
+                else done(new Error('tree is not present'));
+            });
+    })
+    it('should return empty for invalid user', (done) => {
+        request(server)
+            .get(`/link/${testSpecs.invalidUid}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .end(function (err, res) {
+                expect(res).to.have.property('error');
+                expect(res.error).to.have.property('status');
+                expect(res.error.status).to.equal(404);
+                const errText = JSON.parse(res.error.text);
+                expect(errText.message).to.equal(`Tree for user ${testSpecs.invalidUid} is not found`)
+                done();
+            });
+    })
+    it('should return sorted active links for user', (done) => {
+        request(server)
+            .get(`/link/${testSpecs.validUid}?sort`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                const sortedTree = res.body.tree.sort((a, b) => {
+                    // return new Date(a.dateCreated) - new Date(b.dateCreated); //descending
+                    return new Date(b.dateCreated) - new Date(a.dateCreated); //ascending
+                });
+                const alreadySorted = (JSON.stringify(res.body.tree) === JSON.stringify(sortedTree));
+                expect(alreadySorted).to.be.true;
+                done();
+            });
+    })
+})
 
-    it('should not accept links with titles > 144 chars', (done) => {
-        request(server)
-            .post('/newlink')
-            .send(testSpecs.longTitleLink)
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) return done(err);
-                done();
-            });
-    })
-    it('should accept links with titles < 144 chars', (done) => {
-        request(server)
-            .post('/newlink')
-            .send(testSpecs.shortTitleLink)
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) return done(err);
-                done();
-            });
-    })
-    it('should reject invalid link types', (done) => {
-        request(server)
-            .post('/newlink')
-            .send(testSpecs.invalidLinkType)
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) return done(err);
-                done();
-            });
-    })
-    it('should reject unknown link types', (done) => {
-        request(server)
-            .post('/newlink')
-            .send(testSpecs.unknownLinkType)
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) return done(err);
-                done();
-            });
-    })
-    describe('CLASSIC', () => {
+describe('POST /link', () => {
+    describe('COMMON TESTS', () => {
+        it('should not accept links with titles > 144 chars', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.longTitleLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should accept links with titles < 144 chars', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.shortTitleLink)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject invalid link types', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.invalidLinkType)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+        it('should reject unknown link types', (done) => {
+            request(server)
+                .post('/link')
+                .send(testSpecs.unknownLinkType)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    done();
+                });
+        })
+    });
+    describe('CLASSIC LINKS', () => {
         it('should accept a valid link format', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.classic.validLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -84,7 +135,7 @@ describe('POST /newlink', () => {
         })
         it('should reject an invalid link format', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.classic.invalidLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -95,10 +146,10 @@ describe('POST /newlink', () => {
                 });
         })
     });
-    describe('SHOWS', () => {
+    describe('SHOWS LINKS', () => {
         it('should accept a valid link format', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.shows.validLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -110,7 +161,7 @@ describe('POST /newlink', () => {
         })
         it('should reject an invalid link format', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.shows.invalidLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -122,7 +173,7 @@ describe('POST /newlink', () => {
         })
         it('should accept supported show platforms', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.shows.supportedShowLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -134,7 +185,7 @@ describe('POST /newlink', () => {
         })
         it('should reject unsupported show platforms', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.shows.unsupportedShowLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -147,7 +198,7 @@ describe('POST /newlink', () => {
         it('should detect a show is sold out', (done) => {
             //take link in, make mock call and parse result
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.shows.supportedShowLinkForSoldout)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -160,7 +211,7 @@ describe('POST /newlink', () => {
         it('should detect a show still has tickets available', (done) => {
             //take link in, make mock call and parse result
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.shows.supportedShowLinkForHasTickets)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -171,10 +222,10 @@ describe('POST /newlink', () => {
                 });
         })
     });
-    describe('MUSIC', () => {
+    describe('MUSIC LINKS', () => {
         it('should accept a valid link format', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.music.validLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -186,7 +237,7 @@ describe('POST /newlink', () => {
         })
         it('should reject an invalid link format', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.music.invalidLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -198,7 +249,7 @@ describe('POST /newlink', () => {
         })
         it('should accept supported music platforms', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.music.invalidLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -210,7 +261,7 @@ describe('POST /newlink', () => {
         })
         it('should reject unsupported music platforms', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.music.invalidLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -222,7 +273,7 @@ describe('POST /newlink', () => {
         })
         it('should process and return the embed player resource link', (done) => {
             request(server)
-                .post('/newlink')
+                .post('/link')
                 .send(testSpecs.music.invalidLink)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -233,44 +284,4 @@ describe('POST /newlink', () => {
                 });
         })
     });
-            
-    
-})
-
-
-describe('GET /link:uuid', () => {
-
-    it('should return all active links for valid user', (done) => {
-        request(server)
-            .get(`/link/${testSpecs.validUid}`)
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) return done(err);
-                done();
-            });
-    })
-    it('should return empty for invalid user', (done) => {
-        request(server)
-            .get(`/link/${testSpecs.invalidUid}`)
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) return done(err);
-                done();
-            });
-    })
-    it('should return sorted active links for user', (done) => {
-        request(server)
-            .get(`/link/${testSpecs.validUid}?sort=date`)
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) return done(err);
-                done();
-            });
-    })
 })

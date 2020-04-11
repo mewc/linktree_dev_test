@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var lc = require('../controller/link');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/:uid', lc.getLinktree);
+router.post('/', lc.makeNewLink);
 
 module.exports = router;
