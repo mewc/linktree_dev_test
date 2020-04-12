@@ -1,10 +1,11 @@
+
 const mongoose = require('mongoose');
 const validators = require('../util/validators');
 const mappings = require('./mappings');
 const Schema = mongoose.Schema;
 const debug = require('debug')('server:debug')
 
-
+//TODO deeper functional validation at model level based on links and other enums
 const url_validator = {
     validator: validators.isUrl, message: 'Invalid URL input found.'
 }

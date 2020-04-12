@@ -10,11 +10,12 @@ var linkRouter = require('./routes/link');
 var mockRouter = require('./routes/mock');
 
 const jsonErrorHandler = async (err, req, res, next) => {
-  debug({jsonerrhandler: err});
-  res.setHeader('Content-type', 'application/json');
-  res.status(err.status || 500).send({
-    message: err.message,
-    statusCode: err.status
+  const status = err.status,
+    message = err.message;
+  debug({ jsonerrhandler: err });
+  res.status(status || 500).json({
+    message,
+    statusCode: status
   });
 }
 

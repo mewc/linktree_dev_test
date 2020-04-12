@@ -1,7 +1,7 @@
 const db = require('../../util/db');
 const debug = require('debug')('server:debug')
 const buildModel = require('../../models/builder');
-const providerLinkValidator = require('../../util/provider').validateModelLinks;
+const validateModelLinks = require('../../util/providers').validateModelLinks;
 
 const makeNewLink = (req, res, next) => {
     let model = false;
@@ -13,20 +13,18 @@ const makeNewLink = (req, res, next) => {
         throw err;
     }
     //validate links received by client with respective providers
-    providerLinkValidator(model)
-        .then(valid => {
-            if (valid) {
-                return db.createNewLink(model)
-            } else {
-                debug('invalid provider link');
-            }
-        })
+    validateModelLinks(model)
+        .then(valid => { return db.createNewLink(model) })
         .then((r) => {
-            res.status(200).json({ status: "OK", linkId: model._id })
+            res.status(200).json({
+                status: "OK",
+                linkId: model._id,
+                debug: (process.env.NODE_ENV === 'production') ? { model } : undefined
+            })
         }).catch(err => {
-            //TODO handle more specific db error codes when parsing responses
+            debug(err)
             err.status = 400;
-            throw err;
+            throw err();
         })
 
 
@@ -34,9 +32,6 @@ const makeNewLink = (req, res, next) => {
 
 /**
  * @description take in userid as path param, accept querystring sort to enable date sorc
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
  */
 const getLinktree = (req, res, next) => {
     let treeData = false;

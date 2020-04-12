@@ -1,4 +1,4 @@
-const errors = require('../statics/errors');
+const errors = require('../util/errors');
 const debug = require('debug')('server:debug')
 const mappings = require('./mappings');
 const isSupportedProvider = require('../util/validators').isSupportedProvider;

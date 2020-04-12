@@ -1,7 +1,7 @@
 //TODO use a real db connection
 const dbUser = require('../../mockprovider/data/linktrees');
 const dbLinks = require('../../mockprovider/data/links');
-const errors = require('../statics/errors');
+const errors = require('./errors');
 const fileCache = require('./fileCache');
 const debug = require('debug')('server:debug')
 
@@ -22,9 +22,9 @@ const findLinksForUid = (uid) => {
 
 const createNewLink = (postValidatedData) => {
     return new Promise((res,rej) => {
-        fileCache.createNewLink(postValidatedData)
+        fileCache.createNewLink(postValidatedData) //TODO change to real db
         .then(r => res('OK'))
-        .catch(err => rej(err));
+        .catch(err => rej(err)); //throw db specific errors as they are returned
     });
 }
 

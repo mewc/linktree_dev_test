@@ -1,5 +1,6 @@
 module.exports = {
     NoLinksFound: (uid) => new Error(`No links for @${uid} found.`),
+    ProviderLinkNotSupported: (link, provider) => new Error(`Provider "${provider}" does not support or have any integrations mapped to the link: ${link}`),
     ProviderNotSupported: (type, provider) => new Error(`Provider "${provider}" is not a supported ${type} provider type`),
     ProviderTypeNotFound: (name) => new Error(`Provider "${name}" is not a provider type`),
     ProviderNotFound: (name) => new Error(`Provider "${name}" is not a known provider`),
