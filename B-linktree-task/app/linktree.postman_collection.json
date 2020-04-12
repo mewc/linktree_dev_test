@@ -1,0 +1,427 @@
+{
+	"info": {
+		"_postman_id": "165dc370-9b3d-4ba2-92c2-5f570add20fb",
+		"name": "linktree",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET VALID SORT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/link/::?sort",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"link",
+						"::"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": null
+						}
+					],
+					"variable": [
+						{
+							"key": ":",
+							"value": "laurelhalo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET VALID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6086396d-1d3c-42c2-b3d0-c31bb6688019",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/link/::",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"link",
+						"::"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": ":",
+							"value": "legendarypinkdots"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST NEW CLASSIC VALID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6086396d-1d3c-42c2-b3d0-c31bb6688019",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"\",\"link\":\"https://mewc.info\",\"type\":\"classic\",\"dateCreated\":\"2017-12-14T07:58:30.319Z\",\"status\":\"enabled\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/link",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"link"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST NEW CLASSIC INVALID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6086396d-1d3c-42c2-b3d0-c31bb6688019",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"\",\"link\":\"https://mewc.info\",\"type\":\"classic\",\"dateCreated\":\"2017-12-14T07:58:30.319Z\",\"status\":\"enabled\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/link",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"link"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST NEW MUSIC INVALID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6086396d-1d3c-42c2-b3d0-c31bb6688019",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"grsetestest\",\"link\":\"https://mewc.info\",\"type\":\"music\",\"dateCreated\":\"2017-12-14T07:58:30.319Z\",\"status\":\"enabled\",\n\t\"embedLink\":\"https://open.spoqqqqqqqtify.com/track/1rJBpLdCAaVQ3cvrm5hCoN?si=UU-VkHTtRq-ENw-uKm0ERw\",\"provider\":\"spotify\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/link",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"link"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST NEW MUSIC VALID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6086396d-1d3c-42c2-b3d0-c31bb6688019",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"grsetestest\",\"link\":\"https://mewc.info\",\"type\":\"music\",\"dateCreated\":\"2017-12-14T07:58:30.319Z\",\"status\":\"enabled\",\n\t\"embedLink\":\"https://open.spotify.com/track/1rJBpLdCAaVQ3cvrm5hCoN?si=UU-VkHTtRq-ENw-uKm0ERw\",\"provider\":\"spotify\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/link",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"link"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET INVALID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/link/::",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"link",
+						"::"
+					],
+					"variable": [
+						{
+							"key": ":",
+							"value": "THISISANINVALIDUSER"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET MOCK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6086396d-1d3c-42c2-b3d0-c31bb6688019",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/mock/::?id=soldout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"mock",
+						"::"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "soldout",
+							"description": "test with: soldout|available|blahblah"
+						}
+					],
+					"variable": [
+						{
+							"key": ":",
+							"value": "songkick",
+							"description": "songkick|spotify|blahblah"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST NEW SHOW INVALID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6086396d-1d3c-42c2-b3d0-c31bb6688019",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"grsetestest\",\"NOTALINK\":\"https://mewc.info\",\"type\":\"show\",\"dateCreated\":\"2017-12-14T07:58:30.319Z\",\"status\":\"enabled\",\n\t\"eventLink\":\"https://api.songkick.com/\",\"provider\":\"songkick\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/link",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"link"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST NEW SHOW VALID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6086396d-1d3c-42c2-b3d0-c31bb6688019",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"grsetestest\",\"link\":\"https://mewc.info\",\"type\":\"show\",\"dateCreated\":\"2017-12-14T07:58:30.319Z\",\"status\":\"enabled\",\n\t\"eventLink\":\"https://api.songkick.com/\",\"provider\":\"songkick\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/link",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"link"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

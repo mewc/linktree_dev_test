@@ -1,5 +1,5 @@
 //file interfacer used as a mock db for this task
-//TODO use a real cache system for this
+//TODO cache processed files somewhere
 
 const fs = require('fs');
 const debug = require('debug')('server:debug')

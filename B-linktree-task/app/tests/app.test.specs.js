@@ -22,60 +22,45 @@ const classic = {
     invalidLinkUrl: invalidClassicUrl
 }
 
-const validShowsLink = {
 
-}
+const validShowLink = ((c) => c)(mockLinkProvider.show());
+const invalidShowLink = ((c) => { delete c.eventLink; return c; })(mockLinkProvider.show())
+const invalidShowEventUrl = ((c) => { c.eventLink = "htxp://somebadlink"; return c; })(mockLinkProvider.show())
+const deadShowEventUrl = ((c) => { c.eventLink = "http://api.songkickbutnotreally.com/"; return c; })(mockLinkProvider.show())
+const supportedShowPlatform = validShowLink;
+const unsupportedShowPlatform = ((c) => { c.provider = "ticketek"; return c; })(mockLinkProvider.show())
 
-const invalidShowsLink = {
-
-}
-
-const supportedShowLink = {
-
-}
-
-const unsupportedShowLink = {
-
-}
-
-const supportedShowLinkForSoldout = {
-    
-}
-
-const supportedShowLinkForHasTickets = {
-
-}
+//TODO test out when hitting a real endpoint to test
+const supportedShowLinkForSoldout = ((c) => { c.eventLink = "http://localhost:3333/songkick?id=soldout"; return c; })(mockLinkProvider.show())
+const supportedShowLinkForHasTickets = ((c) => { c.eventLink = "http://localhost:3333/songkick?id=available"; return c; })(mockLinkProvider.show())
 
 const shows = {
-    validLink: validShowsLink,
-    invalidLink: invalidShowsLink,
-    supportedShowLink,
-    unsupportedShowLink
+    deadShowEventUrl,
+    invalidShowEventUrl,
+    supportedShowPlatform,
+    unsupportedShowPlatform,
+    validLink: validShowLink,
+    supportedShowLinkForSoldout,
+    invalidLink: invalidShowLink,
+    supportedShowLinkForHasTickets
 }
 
-const validMusicLink = {
 
-}
-
-const invalidMusicLink = {
-
-} 
-
-const supportedMusicPlatformLink = {
-
-}
-
-const unsupportedMusicPlatformLink = {
-
-}
-
+const validMusicLink = ((c) => c)(mockLinkProvider.music());
+const invalidMusicLink = ((c) => { delete c.embedLink; return c; })(mockLinkProvider.music())
+const invalidMusicEmbedUrl = ((c) => { c.embedLink = "htxp://somebadlink"; return c; })(mockLinkProvider.music())
+const deadMusicEmbedUrl = ((c) => { c.embedLink = "http://notspotifyembedurl.com"; return c; })(mockLinkProvider.music())
+const supportedMusicPlatformLink = validMusicLink;
+const unsupportedMusicPlatformLink = ((c) => { c.provider = "FAKEPROVIDER"; return c; })(mockLinkProvider.music())
 
 
 const music = {
     validLink: validMusicLink,
     invalidLink: invalidMusicLink,
+    invalidMusicEmbedUrl,
     unsupportedMusicPlatformLink,
-    supportedMusicPlatformLink
+    supportedMusicPlatformLink,
+    deadMusicEmbedUrl
 }
 
 

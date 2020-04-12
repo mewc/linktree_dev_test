@@ -1,29 +1,37 @@
 const db = require('../../util/db');
 const debug = require('debug')('server:debug')
 const buildModel = require('../../models/builder');
+const validateModelLinks = require('../../util/providers').validateModelLinks;
 
 const makeNewLink = (req, res, next) => {
     let model = false;
     try { model = buildModel(req.body); }
     catch (err) {
-        //TODO handle more db specific errors when using real db - pass real status code in.
+        //TODO handle more db specific errors when using real db - pass real status code/msg in.
+        debug({ msg: err.message });
         err.status = 422;
         throw err;
     }
-    db.createNewLink(model).then((r) => {
-        res.status(200).json({ status: "OK", linkId: model._id })
-    }).catch(err => {
-        //TODO handle more specific db error codes when parsing responses
-        err.status = 400;
-        throw err;
-    })
+    //validate links received by client with respective providers
+    validateModelLinks(model)
+        .then(valid => { return db.createNewLink(model) })
+        .then((r) => {
+            res.status(200).json({
+                status: "OK",
+                linkId: model._id,
+                debug: (process.env.NODE_ENV === 'production') ? { model } : undefined
+            })
+        }).catch(err => {
+            debug(err)
+            err.status = 400;
+            throw err();
+        })
+
+
 }
 
 /**
  * @description take in userid as path param, accept querystring sort to enable date sorc
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
  */
 const getLinktree = (req, res, next) => {
     let treeData = false;
