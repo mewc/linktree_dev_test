@@ -1,7 +1,7 @@
 const axios = require('axios');
 const isUrl = require('../validators').isUrl;
 const debug = require('debug')("server:debug");
-const errors = require('../../statics/errors');
+const errors = require('../errors');
 const providerLinkMappings = require('./mappings');
 
 const linkReturnsExpectedPayloadForProvider = (link) => {

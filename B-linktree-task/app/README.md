@@ -1,9 +1,8 @@
 # Linktree backend task
 
-
 Michael Carters work on the Backend task for linktree. Requirements are in the directory above.
 
-
+TDD express server in javascript and mock services.
 
 ## Getting Started
 
@@ -35,3 +34,9 @@ Db integration is ready to be expanded on, currently it just hits a file that pr
 Providers are the 3rd parties that we would integrate with. Depending on whom, API keys and other auth may be required. `util/providers` is setup to allow infinite integrations with a single entry point that will handle the rest. 
 
 Mock endpoint is quite barebones but will serve as required for validating links. when GET is called on a linktree for a user, ideally we'd make a call in that time to hit a the provider with the, say, events status (soldout/available).
+
+
+## Author
+
+m@mewc.info
+
